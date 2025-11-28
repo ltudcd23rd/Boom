@@ -388,6 +388,39 @@
     opacity: 1;
 }
 
+/* 手機 / 平板主視覺滿版高度 */
+@media (max-width: 991.98px) {
+    #header-carousel .carousel-item {
+        min-height: 100vh;  /* 基本滿版 */
+    }
+
+    /* 支援新 viewport 單位時，改善手機瀏覽器上方網址列高度變動問題 */
+    @supports (height: 100dvh) {
+        #header-carousel .carousel-item {
+            min-height: 100dvh;
+        }
+    }
+
+    /* 圖片等比例填滿整個畫面 */
+    #header-carousel .carousel-item > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* 文字區垂直置中 */
+    #header-carousel .carousel-caption {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
 
 /*** Footer ***/
 @keyframes footerAnimatedBg {
@@ -406,3 +439,121 @@
     background-repeat: repeat-x;
 	animation: footerAnimatedBg 50s linear infinite;
 }
+
+/* =========================
+   For Some Optimized
+   ========================= */
+
+.add-padding{
+    padding-top: 80px;
+    padding-bottom: 80px;
+}
+
+.img-fix {
+    width: 400px;
+    height: 400px;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.img-fix img {
+    object-fit: scale-down;
+}
+
+/* ========= Custom Cursor: Spaceship ========= */
+
+/* 只在桌機隱藏原游標，避免手機版怪異 */
+@media (hover: hover) and (pointer: fine) {
+    body {
+        cursor: none;
+    }
+}
+
+/* 太空船本體 */
+.cursor-ship {
+    position: fixed;
+    left: -20px;
+    top: -20px;
+    width: 40px;     /* 太空船寬度 */
+    height: 40px;    /* 太空船高度 */
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+}
+
+/* 如果你有自己的太空船圖片（推薦） */
+/* 把 img/spaceship.png 換成你的圖路徑 */
+.cursor-ship {
+    background-image: url("../img/cursor.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* 如果沒有圖，可以用純 CSS 畫一個簡單箭頭（備用）
+   想用這個就把上面的 background-image 那段註解掉，開啟下面註解即可 */
+/*
+.cursor-ship::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid #38bdf8;  // 機身顏色
+    filter: drop-shadow(0 0 8px rgba(56,189,248,0.8));
+}
+*/
+
+/* 雲霧拖尾（粒子） */
+.cursor-trail {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 999px;
+    pointer-events: none;
+    z-index: 9998;
+
+    /* 預設旋轉角度，JS 會覆寫這個變數 */
+    --trail-rot: 0deg;
+
+    /* 初始 transform 使用變數 */
+    transform: translate(-50%, -50%) rotate(var(--trail-rot)) scale(1);
+    opacity: 0.9;
+
+    /* 如果是圖片煙霧，這裡換掉 background 即可 */
+    background-image: url("../img/smoke.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    animation: cursor-trail-fade 0.6s ease-out forwards;
+}
+
+/* 拖尾縮小＋淡出動畫：每一幀都保留 rotate(var(--trail-rot)) */
+@keyframes cursor-trail-fade {
+    0% {
+        opacity: 0.9;
+        transform: translate(-50%, -50%) rotate(var(--trail-rot)) scale(1);
+        filter: blur(0px);
+    }
+    70% {
+        opacity: 0.5;
+        transform: translate(-50%, -50%) rotate(var(--trail-rot)) scale(0.8);
+        filter: blur(0px);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--trail-rot)) scale(0.3);
+        filter: blur(0px);
+    }
+}
+
+
