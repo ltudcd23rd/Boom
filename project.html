@@ -76,90 +76,24 @@
         </div>
     </nav>
 
-    <!--    <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">-->
-    <!--        <div class="carousel-inner">-->
-    <!--            <div class="carousel-item active" id="home">-->
-    <!--                <img class="w-100" src="img/homeslide-1.png" alt="Image">-->
-    <!--                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">-->
-    <!--                    <div class="title mx-5 px-5 animated slideInDown">-->
-    <!--                        <div class="title-center">-->
-    <!--                            <h5>Welcome</h5>-->
-    <!--                            <h1 class="display-1">數媒導彈</h1>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                    <p class="fs-5 mb-5 animated slideInDown">嶺東科技大學 <br> 數位媒體設計系 第23屆畢業展</p>-->
-    <!--                    <a href="#!" class="btn btn-outline-primary border-2 py-3 px-5 animated slideInDown">Explore-->
-    <!--                        More</a>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--            <div class="carousel-item">-->
-    <!--                <img class="w-100" src="img/homeslide-2.png" alt="Image">-->
-    <!--                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">-->
-    <!--                    <div class="title mx-5 px-5 animated slideInDown">-->
-    <!--                        <div class="title-center">-->
-    <!--                            <h5>Welcome</h5>-->
-    <!--                            <h1 class="display-1">精選作品</h1>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                    <p class="fs-5 mb-5 animated slideInDown">Lorem ipsum dolor sit amet, consectetur adipiscing-->
-    <!--                        elit.<br> Sed erat lectus, venenatis sit amet egestas eget, aliquet a nisl.</p>-->
-    <!--                    <a href="#!" class="btn btn-outline-primary border-2 py-3 px-5 animated slideInDown">Explore-->
-    <!--                        More</a>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--        <button class="carousel-control-prev" type="button" data-bs-target="#header-carousel" data-bs-slide="prev">-->
-    <!--            <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-    <!--            <span class="visually-hidden">Previous</span>-->
-    <!--        </button>-->
-    <!--        <button class="carousel-control-next" type="button" data-bs-target="#header-carousel" data-bs-slide="next">-->
-    <!--            <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-    <!--            <span class="visually-hidden">Next</span>-->
-    <!--        </button>-->
-    <!--    </div>-->
-    <!--</div>-->
-    <!-- Header End -->
-
-
     <!-- About Start -->
     <div class="container-fluid bg-secondary">
         <div class="container">
             <div class="row g-5 align-items-center add-padding my-1" id="about">
                 <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.5s">
-                    <img class="img-fluid w-75 d-block mx-auto" src="img/A01/A01海報.webp" alt="">
+                    <img id="proj-poster" class="img-fluid w-75 d-block mx-auto" src="" alt="">
                 </div>
                 <div class="col-lg-7 pb-0 pb-lg-5 py-5">
                     <div class="pb-0 pb-lg-5 py-5">
                         <div class="title wow fadeInUp" data-wow-delay="0.1s">
                             <div class="title-left">
-                                <h5>Animation</h5>
-                                <h1>GhostPop</h1>
+                                <h5 id="proj-category"></h5>
+                                <h1 id="proj-title"></h1>
                             </div>
-                        </div>
-                        <p class="mb-5 wow fadeInUp" data-wow-delay="0.2s">打給厚～我們是《Ghost
-                            Pop》！本作以2D動畫描述主角阿公變成靈魂，並從中幫助孫子「大毛」交朋友的奇妙故事。劇情充滿歡樂、搞笑和友情，希望觀眾能從中感受到輕鬆有趣的氛圍。</p>
-                        <!--<ul class="list-group list-group-flush mb-5 wow fadeInUp" data-wow-delay="0.3s">
-                            <li class="list-group-item bg-dark text-body border-secondary ps-0">
-                                <i class="fa fa-check-circle text-primary me-1"></i> Lorem ipsum dolor sit amet
-                                consectetur elit.
-                            </li>
-                            <li class="list-group-item bg-dark text-body border-secondary ps-0">
-                                <i class="fa fa-check-circle text-primary me-1"></i> Donec vehicula, sem ut tempus
-                                tempus.
-                            </li>
-                            <li class="list-group-item bg-dark text-body border-secondary ps-0">
-                                <i class="fa fa-check-circle text-primary me-1"></i> Morbi mi dapibus, feugiat nisi non
-                                mollis justo.
-                            </li>
-                        </ul>-->
-                        <div class="row wow fadeInUp" data-wow-delay="0.4s">
-                            <div class="col-3">
-                                <a href="https://www.instagram.com/ghost_pop_0328/" target="_blank" class="btn btn-outline-primary border-2 py-3 w-100">Instagram</a>
+                            <p id="proj-desc" class="mb-5 wow fadeInUp" data-wow-delay="0.2s"></p>
+
+                            <div class="row wow fadeInUp" data-wow-delay="0.4s" id="links-container">
                             </div>
-                            <div class="col-3">
-                                <a href="https://www.threads.com/@ghost_pop_0328?xmt=AQF0Iyps7hAC3p9xO-5GfKizZy0qzfFRFttEqmzp2nQYnrU" target="_blank" class="btn btn-outline-primary border-2 py-3 w-100">Threads</a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -180,14 +114,15 @@
                 </div>
             </div>
             <div class="row g-4">
-                <div class=" wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="team-item">
-                        <div class="team-body">
-                            <iframe width="1381" height="480" src="https://www.youtube.com/embed/awh1s5n53lU"
-                                    title="《 Ghost Pop｜鬼阿公》動畫預告" frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                        </div>
+                <div class="col-12 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="ratio ratio-16x9">
+                        <iframe id="proj-video"
+                                src=""
+                                title="Video Preview"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                        </iframe>
                     </div>
                 </div>
             </div>
@@ -207,7 +142,7 @@
                     </div>
                 </div>
 
-                <div class="row g-4 justify-content-center">
+                <div class="row g-4 justify-content-center" id="member-container">
 
                     <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
                         <div class="testimonial-item text-center d-flex flex-column align-items-center">
@@ -331,6 +266,7 @@
         <script src="lib/lightbox/js/lightbox.min.js"></script>
 
         <!-- Template Javascript -->
+        <script src="js/projects-data.js"></script>
         <script src="js/main.js"></script>
     </div>
 </div>
