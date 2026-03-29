@@ -5,7 +5,7 @@
         title: "GhostPop",
         poster: "img/A01/A01-Ghost Pop.webp",
         description: "打給厚～我們是《Ghost Pop》！本作以2D動畫描述主角阿公變成靈魂，並從中幫助孫子「大毛」交朋友的奇妙故事。劇情充滿歡樂、搞笑和友情，希望觀眾能從中感受到輕鬆有趣的氛圍。",
-        videoUrl: "https://www.youtube.com/embed/awh1s5n53lU",
+        videoUrl: "https://www.youtube.com/embed/h3eQTyANuaY",
         links: [
             {label: "Instagram", url: "https://www.instagram.com/ghost_pop_0328/"},
             {label: "Threads", url: "https://www.threads.com/@ghost_pop_0328"},
@@ -190,6 +190,7 @@
             { name: "何旻諺", role: "2D美術、UI", img: "img/G01/G01-何旻諺-2D美術、UI.webp" },
             { name: "徐于晴", role: "角色建模、動畫", img: "img/G01/G01-徐于晴-角色建模、動畫.webp" },
             { name: "趙琪紅", role: "音樂音效", img: "img/G01/G01-趙琪紅-音樂音效.webp" },
+            { name: "許以念", role: "場景建模", img: "img/G01/G01-許以念-場景建模.webp" },
         ]
     },
     "G02": {
