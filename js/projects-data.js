@@ -11,7 +11,7 @@
             {label: "Threads", url: "https://www.threads.com/@ghost_pop_0328"},
         ],
         members: [
-            {name: "劉欽豪", role: "指導老師", img: "img/A01/A01-劉欽豪-指導老師.webp"},
+            { name: "劉欽豪", role: "指導老師", img: "img/A02/指導老師-劉欽豪.webp" },
             {name: "呂育澤", role: "後製", img: "img/A01/A01-呂育澤-後製.webp"},
             {name: "張子洋", role: "原畫", img: "img/A01/A01-張子洋-原畫.webp"},
             {name: "張𤧟", role: "動畫", img: "img/A01/A01-張𤧟-動畫.webp"},
