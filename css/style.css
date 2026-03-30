@@ -1,13 +1,46 @@
 /********** Template CSS **********/
 
-.back-to-top {
+.hero-section {
+    width: 100%;
+    height: 100vh; /* 關鍵：佔滿 100% 視埠高度 */
+    background-size: cover;
+    background-position: center;
+}
+
+.logo-fix img {
+    height: 30vh !important; /* 使用 !important 確保覆蓋 Bootstrap 預設值 */
+    width: auto !important;   /* 確保寬度隨高度等比例縮放 */
+    max-width: 90vw;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+.small-logo-fix img {
+    height: 4vh !important; /* 使用 !important 確保覆蓋 Bootstrap 預設值 */
+    width: 4vh !important;   /* 確保寬度隨高度等比例縮放 */
+    max-width: 10vw;
+    object-fit: contain;
+    margin-bottom: 15px ;
+    margin-right: 15px ;
+}
+
+.small-logo-fix2 img {
+    height: 10vh !important; /* 使用 !important 確保覆蓋 Bootstrap 預設值 */
+    width: 8vh !important;   /* 確保寬度隨高度等比例縮放 */
+    max-width: 10vw;
+    object-fit: contain;
+    margin-bottom: 20px ;
+    margin-right: 15px ;
+}
+
+    .back-to-top {
     position: fixed;
     display: none;
     right: 45px;
     bottom: 45px;
     z-index: 99;
 }
-
 
 /*** Spinner ***/
 #spinner {
@@ -139,7 +172,7 @@
     right: 0;
     bottom: 0;
     padding-top: 100px;
-    background: rgba(0, 0, 0, .7);
+    background: rgba(0, 0, 0, .5);
     z-index: 1;
 }
 
@@ -161,10 +194,8 @@
     }
     
     #header-carousel .carousel-item img {
-        position: absolute;
         width: 100%;
         height: 100%;
-        object-fit: cover;
     }
 }
 
@@ -243,6 +274,7 @@
     position: relative;
     margin-top: 2.5rem;
     overflow: hidden;
+    object-fit: scale-down;
 }
 
 .service-item .service-img {
@@ -250,7 +282,8 @@
     display: inline-block;
 }
 
-.service-item .service-img::before {
+
+/*.service-item .service-img::before {
     position: absolute;
     content: "";
     width: calc(100% - 12rem);
@@ -261,7 +294,7 @@
     border: 3rem solid rgba(0, 0, 0, .5);
     border-radius: 300px;
     z-index: 1;
-}
+}*/
 
 .service-item.service-item-left {
     border-radius: 500px 0 0 500px;
@@ -281,7 +314,6 @@
         text-align: center;
     }
 }
-
 
 /*** Team ***/
 .team-item {
@@ -595,4 +627,45 @@
     }
 }
 
+.margin-zero {
+    margin: 0;
+}
+
+/* 確保父容器佔滿全螢幕 */
+.hero-section, .carousel-item {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 覆寫 Bootstrap 預設 caption 樣式 */
+.carousel-caption {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0 !important; /* 移除 padding-top 避免內容下偏 */
+    background: rgba(0, 0, 0, .3); /* 降低遮罩感 */
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* 確保垂直水平絕對居中 */
+    z-index: 2;
+}
+
+.carousel-caption p {
+    font-size: 2.5vh; /* 字體大小隨高度縮放 */
+    margin-top: 2vh;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* 針對 homeslide-1.png 所在的 img */
+.carousel-item > img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover; /* 確保背景圖完整覆蓋且不變形 */
+}
 

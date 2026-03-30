@@ -347,20 +347,19 @@
         const urlParams = new URLSearchParams(window.location.search);
         const pid = urlParams.get('id');
 
-        // 檢查是否在 project.html 且有資料庫可用
         if (!pid || !window.PROJECTS_DATA) return;
 
         const data = window.PROJECTS_DATA[pid];
 
         if (data) {
-            // 替換基本資訊
+            // 1. 替換基本資訊
             $('#proj-title').text(data.title);
             $('#proj-category').text(data.category);
             $('#proj-desc').text(data.description);
             $('#proj-poster').attr('src', data.poster);
             $('#proj-video').attr('src', data.videoUrl);
 
-            // --- 動態處理社交媒體按鈕 ---
+            // 2. 動態處理社交媒體按鈕
             let linksHtml = '';
             if (data.links && data.links.length > 0) {
                 data.links.forEach(link => {
@@ -374,7 +373,7 @@
             }
             $('#links-container').html(linksHtml);
 
-            // 動態生成成員卡片
+            // 3. 動態生成成員卡片
             let html = '';
             data.members.forEach(m => {
                 html += `
@@ -386,19 +385,33 @@
                         </div>
                     </div>`;
             });
-
             const $container = $('#member-container');
-            if ($container.length) {
-                $container.html(html);
+            if ($container.length) $container.html(html);
+
+            // --- 4. 核心修改：處理左右切換按鈕 ---
+            const projectKeys = Object.keys(window.PROJECTS_DATA); // 取得所有 ID 陣列
+            const currentIndex = projectKeys.indexOf(pid);
+
+            if (currentIndex !== -1) {
+                // 計算上一組與下一組的索引（循環模式）
+                const prevIndex = (currentIndex - 1 + projectKeys.length) % projectKeys.length;
+                const nextIndex = (currentIndex + 1) % projectKeys.length;
+
+                const prevId = projectKeys[prevIndex];
+                const nextId = projectKeys[nextIndex];
+
+                // 更新 HTML 中的按鈕 href
+                $('#prev-project').attr('href', `project.html?id=${prevId}`);
+                $('#next-project').attr('next-id', nextId); // 供 JS 跳轉或備用
+                $('#next-project').attr('href', `project.html?id=${nextId}`);
             }
 
             // 更新網頁標題
             document.title = `${data.title} - KaBoom`;
         } else {
-            console.error("Project ID not found in database.");
-            $('#proj-desc').text("查無此作品資訊，請回主頁重新選擇。");
+            console.error("Project ID not found.");
+            $('#proj-desc').text("查無此作品資訊。");
         }
     }
 
 })(jQuery);
-
