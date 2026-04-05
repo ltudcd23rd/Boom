@@ -640,7 +640,7 @@ function playClickSound(frequency = 440, type = 'sine') {
             快重新加載頁面！
         </div>
         <div style="color:white; opacity:0.5; margin-top:20px; font-size:0.9rem;">
-            ( 點擊F5 )
+            ( 威脅已鎖定視窗中心，滑動無法擺脫 )
         </div>
     `;
         document.body.appendChild(mask);
