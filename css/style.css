@@ -844,7 +844,9 @@ button,
     display: flex;
     align-items: center;
     justify-content: center;
+    /*
     box-shadow: 0 0 20px var(--core-glow, #fff);
+    */
 }
 
 .inspiration-core:active {
@@ -854,7 +856,9 @@ button,
 .core-inner {
     width: 60%;
     height: 60%;
+    /*
     background: var(--core-color, #555);
+    */
     border-radius: 50%;
     filter: blur(5px);
     transition: background 0.3s;
@@ -1133,7 +1137,9 @@ button,
     width: 70%;
     height: 70%;
     /* 確保使用了 JS 傳入的變數 */
+    /*
     background-color: var(--core-color, #555);
+    */
     border-radius: 50%;
     filter: blur(4px);
     transition: background-color 0.3s ease;
