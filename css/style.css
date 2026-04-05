@@ -46,12 +46,12 @@
 #spinner {
     opacity: 0;
     visibility: hidden;
-    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    transition: opacity .8s ease-out, visibility 0s linear .5s;
     z-index: 99999;
 }
 
 #spinner.show {
-    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    transition: opacity .8s ease-out, visibility 0s linear 0s;
     visibility: visible;
     opacity: 1;
 }
@@ -164,6 +164,14 @@
     margin-left: 8px;
 }
 
+.navbar-brand{
+    margin-right:0; !important;
+}
+
+.mx-fix{
+    margin-right:auto !important;margin-left:600px !important
+}
+
 
 /*** Header ***/
 .carousel-caption {
@@ -268,6 +276,11 @@
     border-bottom: 1px solid var(--bs-white);
 }
 
+.title h1 {
+    text-shadow: 3px 3px 0px var(--bs-primary), 6px 6px 0px #000;
+    font-style: italic;
+    letter-spacing: 2px;
+}
 
 /*** Service ***/
 .service-item {
@@ -283,22 +296,9 @@
 }
 
 
-/*.service-item .service-img::before {
-    position: absolute;
-    content: "";
-    width: calc(100% - 12rem);
-    height: calc(100% - 12rem);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border: 3rem solid rgba(0, 0, 0, .5);
-    border-radius: 300px;
-    z-index: 1;
-}*/
-
 .service-item.service-item-left {
-    border-radius: 500px 0 0 500px;
-    background: linear-gradient(to right, var(--bs-secondary), var(--bs-dark));
+    border-radius: 500px 500px 0 0;
+    background: linear-gradient(to bottom, var(--bs-secondary), var(--bs-dark));
 }
 
 .service-item.service-item-right {
@@ -314,6 +314,7 @@
         text-align: center;
     }
 }
+
 
 /*** Team ***/
 .team-item {
@@ -482,10 +483,13 @@
 }
 
 .img-fix {
-    width: 400px;
-    height: 400px;
-    overflow: hidden;
-    object-fit: cover;
+    width: 100%;             /* 隨父容器寬度縮放 */
+    max-width: 400px;        /* 限制最大尺寸 */
+    aspect-ratio: 1 / 1;    /* 關鍵：強制維持 1:1 正方形 */
+    object-fit: cover;      /* 關鍵：確保圖片填滿正圓且不變形 */
+    border-radius: 50% !important; /* 強制圓形 */
+    display: block;
+    margin: 0 auto;
 }
 
 .img-fix2 {
@@ -543,16 +547,15 @@
 /* 太空船本體 */
 .cursor-ship {
     position: fixed;
-    left: -20px;
-    top: -20px;
+    left: 0;
+    top: 0;
     width: 40px;     /* 太空船寬度 */
     height: 40px;    /* 太空船高度 */
     transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: 9999;
     opacity: 0;
-    transition: opacity 0.2s ease-out;
-}
+    transition: opacity 0.2s ease-out;}
 
 /* 如果你有自己的太空船圖片（推薦） */
 /* 把 img/spaceship.png 換成你的圖路徑 */
@@ -563,43 +566,54 @@
     background-repeat: no-repeat;
 }
 
-/* 如果沒有圖，可以用純 CSS 畫一個簡單箭頭（備用）
-   想用這個就把上面的 background-image 那段註解掉，開啟下面註解即可 */
-/*
-.cursor-ship::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 20px solid #38bdf8;  // 機身顏色
-    filter: drop-shadow(0 0 8px rgba(56,189,248,0.8));
+.cursor-boost {
+    /*
+    transform: translate(-50%, -50%) scale(1.5) rotate(15deg) !important;
+    */
+    filter: drop-shadow(0 0 15px var(--bs-primary)); /* 增加發光感模擬噴射火光 */
 }
-*/
+
+/* 針對所有按鈕類別加入按下狀態 */
+.btn:active,
+.project-item:active,
+.nav-link:active {
+    transform: scale(0.95) !important;
+    transition: transform 0.1s ease; /* 縮放速度要快，才有打擊感 */
+}
+
+a,
+button,
+.btn,
+.nav-link,
+.team-item,
+.project-item,
+[role="button"] {
+    cursor: none !important;
+}
+
+/* 如果你的作品卡片也有點擊功能，建議一併加入 */
+.team-link:active .team-item {
+    transform: scale(0.98);
+}
 
 /* 雲霧拖尾（粒子） */
 .cursor-trail {
     position: fixed;
     left: 0;
     top: 0;
+    bottom: 10px;
     width: 26px;
     height: 26px;
-    border-radius: 999px;
     pointer-events: none;
     z-index: 9998;
 
-    /* 預設旋轉角度，JS 會覆寫這個變數 */
+    /* 關鍵：同時引用旋轉與縮放變數 */
     --trail-rot: 0deg;
+    --trail-scale: 1;
 
-    /* 初始 transform 使用變數 */
-    transform: translate(-50%, -50%) rotate(var(--trail-rot)) scale(1);
-    opacity: 0.9;
+    /* 初始狀態需包含 translate(-50%, -50%) */
+    transform: translate(-50%, -50%) rotate(var(--trail-rot)) scale(var(--trail-scale));
 
-    /* 如果是圖片煙霧，這裡換掉 background 即可 */
     background-image: url("../img/smoke.PNG");
     background-size: contain;
     background-position: center;
@@ -608,22 +622,15 @@
     animation: cursor-trail-fade 0.6s ease-out forwards;
 }
 
-/* 拖尾縮小＋淡出動畫：每一幀都保留 rotate(var(--trail-rot)) */
+/* 確保動畫每一幀都保留這些變數，否則縮放會失效 */
 @keyframes cursor-trail-fade {
     0% {
         opacity: 0.9;
-        transform: translate(-50%, -50%) rotate(var(--trail-rot)) scale(1);
-        filter: blur(0px);
-    }
-    70% {
-        opacity: 0.5;
-        transform: translate(-50%, -50%) rotate(var(--trail-rot)) scale(0.8);
-        filter: blur(0px);
+        transform: translate(-50%, -50%) rotate(var(--trail-rot)) scale(var(--trail-scale));
     }
     100% {
         opacity: 0;
-        transform: translate(-50%, -50%) rotate(var(--trail-rot)) scale(0.3);
-        filter: blur(0px);
+        transform: translate(-50%, -50%) rotate(var(--trail-rot)) scale(calc(var(--trail-scale) * 0.3));
     }
 }
 
@@ -669,3 +676,484 @@
     object-fit: cover; /* 確保背景圖完整覆蓋且不變形 */
 }
 
+.custom-filter {
+    justify-content: center;      /* 置中對齊 */
+}
+
+@media (max-width: 576px) {
+/* 1. 容器設定：強制不換行，且寬度剛好等於螢幕寬 */
+.custom-filter {
+    display: flex !important;
+    flex-wrap: nowrap !important; /* 核心：禁止換行 */
+    width: 100%;                  /* 寬度不超出父層 */
+    padding: 0;
+    margin: 0;
+}
+
+/* 2. 項目設定：允許內容隨比例縮小 */
+.custom-filter .nav-item {
+    flex: 1 1 auto;              /* 核心：允許縮小 (shrink) 並平分空間 */
+    min-width: 0;                /* 允許項目縮小到小於內容寬度 */
+    text-align: center;
+    margin: 0 0.5vw !important;  /* 間距改用 vw，隨螢幕縮小而變窄 */
+}
+
+/* 3. 按鈕文字設定：隨比例縮放字體 */
+.custom-filter .btn {
+    width: 100%;                 /* 撐滿 nav-item */
+    padding: 0.5vh 1vw !important; /* 內距隨比例縮放 */
+    font-size: 1.8vw !important;  /* 核心：字體隨寬度縮放，確保不擠壓變形 */
+    white-space: nowrap;          /* 避免按鈕內文字斷行 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 針對極小螢幕（手機）的微調 */
+    .custom-filter .btn {
+        font-size: 3vw !important; /* 手機端字體稍微放大以維持可讀性 */
+        padding: 5px 2px !important;
+    }
+}
+
+/* 煙霧容器層 */
+.smoke-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none; /* 確保不影響滑鼠點擊 */
+    z-index: 1;
+}
+
+/* 煙霧粒子本體 */
+.smoke-particle {
+    position: absolute;
+    bottom: -50px; /* 從螢幕下方外開始 */
+    width: 60px;
+    height: 60px;
+    background-image: url('../img/smoke.PNG');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0;
+    animation: smokeRise 3s infinite linear;
+}
+
+/* 核心動畫：上升、飄移、縮放、淡出 */
+@keyframes smokeRise {
+    0% {
+        transform: translateY(0) translateX(0) rotate(10rad) scale(0.5);
+        opacity: 0;
+    }
+    1% {
+        opacity: 1;
+    }
+    30%{
+        transform: translateY(-60vh) translateX(0px)  rotate(5rad) scale(1.0)
+    }
+    45%{
+        transform: translateY(-100vh) translateX(0px)  rotate(1rad) scale(1.5)
+    }
+    58%{
+        transform: translateY(-80vh) translateX(0px) rotate(1.5rad) scale(1.4)
+    }
+    70%{
+        transform: translateY(-60vh) translateX(0px) rotate(2.3rad) scale(1.0)
+    }
+    80%{
+        transform: translateY(-30vh) translateX(0px) rotate(5rad) scale(0.8)
+    }
+    99% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(20vh) translateX(0px) rotate(10rad) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* 隨機化：為每個粒子設定不同的位置與延遲，營造自然感 */
+.smoke-particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 4s; }
+.smoke-particle:nth-child(2) { left: 20%; animation-delay: 2s; animation-duration: 5s; }
+.smoke-particle:nth-child(3) { left: 40%; animation-delay: 1s; animation-duration: 3.5s; }
+.smoke-particle:nth-child(4) { left: 55%; animation-delay: 3s; animation-duration: 6s; }
+.smoke-particle:nth-child(5) { left: 70%; animation-delay: 0.8s; animation-duration: 4.5s; }
+.smoke-particle:nth-child(6) { left: 85%; animation-delay: 1.5s; animation-duration: 5.5s; }
+.smoke-particle:nth-child(7) { left: 5%; animation-delay: 2.3s; animation-duration: 3s; }
+.smoke-particle:nth-child(8) { left: 100%; animation-delay: 2.8s; animation-duration: 4s; }
+
+.comic-bubble-dynamic {
+    position: absolute;
+    background: #fffb00;
+    border: 4px solid #000;
+    padding: 10px 18px;
+    border-radius: 40px;
+    box-shadow: 6px 6px 0px #000;
+    z-index: 10;
+    pointer-events: none;
+    user-select: none;
+
+    --bubble-rot: 0deg;
+
+    /* 初始狀態：移除 translateX(-50%)，改用簡單的縮放旋轉 */
+    transform: scale(0) rotate(var(--bubble-rot)) !important;
+    opacity: 0 !important;
+
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    opacity 0.4s ease;
+    will-change: transform, opacity;
+}
+
+.comic-bubble-dynamic img {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(2px 2px 0px #000); /* 增加漫畫感 */
+}
+
+/* 出現後的狀態：必須保留 translate(-50%, 0) 並強制覆蓋初始狀態 */
+.bubble-visible {
+    transform: scale(1) rotate(var(--bubble-rot)) !important;
+    opacity: 1 !important;
+}
+
+/* 消失的狀態 */
+.bubble-fade-out {
+    opacity: 0 !important;
+    transform: scale(0.2) rotate(var(--bubble-rot)) translateY(-40px) !important;
+}
+
+.bubble-text-dynamic {
+    color: #000;
+    font-weight: 900;
+    font-size: 1.1rem;
+    white-space: nowrap;
+}
+
+.inspiration-core {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 20px auto;
+    background: #333;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    cursor: none; /* 讓太空船游標顯示 */
+    transition: transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px var(--core-glow, #fff);
+}
+
+.inspiration-core:active {
+    transform: scale(0.9); /* 點擊縮放回饋 */
+}
+
+.core-inner {
+    width: 60%;
+    height: 60%;
+    background: var(--core-color, #555);
+    border-radius: 50%;
+    filter: blur(5px);
+    transition: background 0.3s;
+}
+
+.click-hint {
+    position: absolute;
+    bottom: -30px;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #fffb00;
+}
+
+/* 全螢幕震動類別 (當過載時觸發) */
+.screen-shake {
+    animation: shake 0.2s infinite;
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    50% { transform: translate(-1px, -2px) rotate(-1deg); }
+    100% { transform: translate(1px, 1px) rotate(0deg); }
+}
+
+/* 核心容器需要有相對定位，以便內部的 click-hint 定位 */
+.inspiration-core {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    background: #222;
+    border: 5px solid #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.1s, box-shadow 0.3s;
+    user-select: none;
+}
+
+/* 故障狀態：套用於 body */
+.system-glitch {
+    animation: glitch-mild-filter 3s infinite steps(2);
+    position: relative;
+    cursor: auto !important;
+}
+
+/* 產生隨機切片的色彩錯位層 */
+.system-glitch::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    z-index: 9999;
+    pointer-events: none; /* 關鍵：確保滑鼠可以穿透點擊下方內容 */
+    opacity: 0.5;
+    mix-blend-mode: difference;
+    animation: glitch-slice 0.5s infinite steps(2);
+}
+
+/* 濾鏡故障動畫 */
+@keyframes glitch-filter {
+    0% { filter: contrast(120%) hue-rotate(0deg); }
+    20% { filter: contrast(150%) hue-rotate(90deg) brightness(1.2); }
+    40% { filter: contrast(200%) sepia(1) invert(1); }
+    60% { filter: contrast(110%) hue-rotate(270deg); }
+    80% { filter: contrast(150%) saturate(3); }
+    100% { filter: contrast(120%) hue-rotate(360deg); }
+}
+
+/* 畫面切片位移動畫 */
+@keyframes glitch-slice {
+    0% { clip-path: inset(80% 0 0 0); transform: translateX(-10px); }
+    20% { clip-path: inset(10% 0 70% 0); transform: translateX(10px); }
+    40% { clip-path: inset(50% 0 30% 0); transform: translateX(-5px); }
+    60% { clip-path: inset(30% 0 50% 0); transform: translateX(5px); }
+    80% { clip-path: inset(0 0 80% 0); transform: translateX(-2px); }
+    100% { clip-path: inset(80% 0 0 0); transform: translateX(0); }
+}
+
+/* 警告文字層 */
+.glitch-warning-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); /* 半透明黑，降低背景亮度 */
+    z-index: 10005;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    text-align: center;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+.glitch-warning-text {
+    color: #000000;
+    font-size: 2.5rem;
+    font-weight: 900;
+    text-shadow: 3px 3px 0px #21ca0a;
+    margin-bottom: 20px;
+    animation: text-blink 0.5s infinite alternate;
+}
+
+/* 溫和一點的故障濾鏡 */
+@keyframes glitch-mild-filter {
+    0% { filter: contrast(110%) saturate(1.2); }
+    33% { filter: contrast(125%) saturate(1.5) hue-rotate(10deg); }
+    66% { filter: contrast(115%) brightness(1.1) hue-rotate(-10deg); }
+    100% { filter: contrast(110%) saturate(1.2); }
+}
+
+/* 警告文字閃爍 */
+@keyframes text-blink {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0.8; transform: scale(1.05); }
+}
+
+/* 畫面切片保持，但降低頻率與位移量 */
+.system-glitch::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10004;
+    pointer-events: none;
+    opacity: 0.2; /* 降低蓋板透明度 */
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+    background-size: 100% 2px, 3px 100%;
+    animation: glitch-slice-mild 1s infinite steps(4);
+}
+
+@keyframes glitch-slice-mild {
+    0% { clip-path: inset(10% 0 80% 0); transform: translateX(-2px); }
+    50% { clip-path: inset(60% 0 20% 0); transform: translateX(2px); }
+    100% { clip-path: inset(30% 0 50% 0); transform: translateX(0); }
+}
+
+/* 鎖定在螢幕玻璃上的警告層 */
+.glitch-overlay-mask {
+    /* 強制固定在視窗，不隨捲動移動 */
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+
+    /* 視覺設定 */
+    width: 90vw;
+    max-width: 500px;
+    min-height: 250px;
+    background: rgba(0, 0, 0, 0.95);
+    border: 5px solid #fffb00;
+    box-shadow: 0 0 50px rgba(255, 251, 0, 0.6);
+    border-radius: 20px;
+
+    /* 層級與互動 */
+    z-index: 999999 !important; /* 絕對最高層級 */
+    pointer-events: none;      /* 讓滑鼠點擊與捲動穿透到下方網頁 */
+
+    /* 內容排版 */
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+
+    /* 故障抖動動畫 */
+    animation: viewport-glitch 0.2s infinite;
+}
+
+/* 警告文字 */
+.glitch-warning-text {
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1.5;
+    text-shadow: 4px 4px 0px #e82121;
+    font-family: 'Noto Sans TC', sans-serif;
+    margin: 0;
+}
+
+/* 視窗抖動動畫 (僅針對警告框) */
+@keyframes viewport-glitch {
+    0% { transform: translate(-50%, -50%) skew(0deg); }
+    25% { transform: translate(-51%, -49%) skew(1deg); }
+    50% { transform: translate(-49%, -50%) skew(-1deg); }
+    75% { transform: translate(-50%, -51%) skew(0deg); }
+    100% { transform: translate(-50%, -50%) skew(0deg); }
+}
+
+/* --- 1. 全螢幕故障遮罩層 (濾鏡與切片都在這層) --- */
+.global-glitch-overlay {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    z-index: 99998; /* 低於警告框 */
+    pointer-events: none;
+
+    /* 這裡跑你最喜歡的色彩故障動畫 */
+    animation: glitch-filter-global 2s infinite steps(1);
+}
+
+/* 產生隨機切片 (利用偽元素) */
+.global-glitch-overlay::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    backdrop-filter: contrast(150%); /* 增加對底層的干擾 */
+    mix-blend-mode: difference;
+    animation: glitch-slice-global 0.5s infinite steps(2);
+}
+
+/* 警告框：獨立定位，不受 body 濾鏡影響 */
+.glitch-overlay-mask {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 90vw;
+    max-width: 500px;
+    background: rgba(0, 0, 0, 0.95);
+    border: 5px solid #53ff00;
+    box-shadow: 0 0 50px rgba(133, 255, 53, 0.6);
+    border-radius: 20px;
+    z-index: 999999 !important; /* 最高層級 */
+    pointer-events: none;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    text-align: center;
+    animation: mask-vibration-fixed 0.1s infinite;
+}
+
+/* --- 動畫定義 --- */
+@keyframes glitch-filter-global {
+    0% { backdrop-filter: contrast(120%) hue-rotate(0deg); }
+    20% { backdrop-filter: contrast(150%) hue-rotate(90deg) brightness(1.2); }
+    40% { backdrop-filter: contrast(200%) sepia(1) invert(1); }
+    60% { backdrop-filter: contrast(110%) hue-rotate(270deg); }
+    80% { backdrop-filter: contrast(150%) saturate(3); }
+    100% { backdrop-filter: contrast(120%) hue-rotate(360deg); }
+}
+
+@keyframes glitch-slice-global {
+    0% { clip-path: inset(80% 0 0 0); transform: translateX(-15px); }
+    50% { clip-path: inset(10% 0 70% 0); transform: translateX(15px); }
+    100% { clip-path: inset(40% 0 40% 0); transform: translateX(0); }
+}
+
+@keyframes mask-vibration-fixed {
+    0%, 100% { transform: translate(-50%, -50%); }
+    50% { transform: translate(-50.5%, -49.5%) rotate(0.5deg); }
+}
+
+/* 核心內部的發光體 */
+.core-inner {
+    width: 70%;
+    height: 70%;
+    /* 確保使用了 JS 傳入的變數 */
+    background-color: var(--core-color, #555);
+    border-radius: 50%;
+    filter: blur(4px);
+    transition: background-color 0.3s ease;
+}
+
+/* 全域故障層：必須透明，否則會遮住按鈕顏色 */
+.global-glitch-overlay {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparent !important; /* 必須透明 */
+    z-index: 99998;
+    pointer-events: none;
+    animation: glitch-filter-global 2s infinite steps(1);
+}
+
+/* 過載後的按鈕動畫 (可選) */
+@keyframes core-burnt {
+    0% { filter: brightness(1) sepia(1) hue-rotate(-50deg); }
+    100% { filter: brightness(0.5) grayscale(1); }
+}

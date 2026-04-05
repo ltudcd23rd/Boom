@@ -63,44 +63,41 @@
     let lastX = 0;
     let lastY = 0;
     let lastTime = 0;
-
-    // 控制拖尾生成頻率（毫秒）
-    const TRAIL_INTERVAL = 100;
-
-    // 追蹤游標方向用
     let prevAngle = 0;
-
-    // 用於標記滑鼠是否處於可點擊元素上
     let isHoveringInteractable = false;
+
+    const TRAIL_INTERVAL = 80; // 稍微調快頻率增加流暢度
 
     // 移動事件
     window.addEventListener("mousemove", function (e) {
         const x = e.clientX;
         const y = e.clientY;
 
-        // --- 修改點 A: 根據 Hover 狀態決定是否顯示太空船 ---
-        // 只有當滑鼠移動，且「不是」在可點擊元素上時，才顯示太空船
-        if (!isHoveringInteractable) {
-            ship.style.opacity = "1";
-        }
+        // 顯示太空船
+        ship.style.opacity = "1";
 
-        // 算方向角度（讓太空船朝移動方向）
+        // 計算方向角度
         const dx = x - lastX;
         const dy = y - lastY;
         let angle = prevAngle;
 
         if (dx !== 0 || dy !== 0) {
-            // atan2 回傳弧度，轉成角度
-            angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90; // +90 讓圖片朝上可視為「前方」
+            angle = Math.atan2(dy, dx) * (180 / Math.PI) + 90;
             prevAngle = angle;
         }
 
-        // 更新太空船位置與旋轉
-        ship.style.transform = `translate(${x}px, ${y}px) rotate(${angle}deg)`;
+        // 核心修正：根據 hover 狀態決定縮放倍率與額外旋轉
+        // 這樣 JS 更新位置時就不會蓋掉 CSS 的加速效果
+        const currentScale = isHoveringInteractable ? 1.5 : 1;
+        const boostRotation = isHoveringInteractable ? 15 : 0;
+        const finalAngle = angle + boostRotation;
 
-        // --- 修改點 B: 只有在顯示太空船時才產生煙霧 ---
+        // 統一座標與中心點：translate(位置) -> translate(中心補償) -> scale -> rotate
+        ship.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%) scale(${currentScale}) rotate(${finalAngle}deg)`;
+
+        // 產生煙霧：座標與太空船位置完全一致
         const now = performance.now();
-        if (!isHoveringInteractable && now - lastTime > TRAIL_INTERVAL) {
+        if (now - lastTime > TRAIL_INTERVAL) {
             createTrail(x, y);
             lastTime = now;
         }
@@ -109,41 +106,38 @@
         lastY = y;
     });
 
-    // 滑出視窗時隱藏太空船
+    // 滑出視窗時隱藏
     window.addEventListener("mouseleave", function () {
-        if (ship) {
-            ship.style.opacity = "0";
-        }
+        ship.style.opacity = "0";
     });
 
-    // --- 修改點 C: 加入 Hover 監聽邏輯 ---
-    // 取得所有需要觸發手指 icon (且隱藏太空船) 的元素
-    // 包含連結、按鈕、Bootstrap 的 .btn 類別、導覽列連結、以及動態生成的作品卡片 (.team-item)
+    // Hover 監聽邏輯：改為更新布林值
     const interactableTargets = 'a, button, .btn, .nav-link, .team-item, [role="button"]';
 
-    // 使用 jQuery 的事件委賴 (Event Delegation) 處理動態生成的元素
-    // 這確保了透過 JS 生成的作品卡片也能正常觸發
-    $(document).on('mouseenter', interactableTargets, function() {
+    $(document).on('mouseenter', interactableTargets, function () {
         isHoveringInteractable = true;
-        ship.style.opacity = "0"; // 立即隱藏太空船
-    }).on('mouseleave', interactableTargets, function() {
+        // 增加發光濾鏡模擬噴射感
+        ship.style.filter = "drop-shadow(0 0 15px var(--bs-primary))";
+    }).on('mouseleave', interactableTargets, function () {
         isHoveringInteractable = false;
-        // 離開時，不要在這裡立即設為 1，讓 mousemove 函式去處理顯示，避免滑動時閃爍
+        ship.style.filter = "none";
     });
-
 
     // 產生雲霧拖尾
     function createTrail(x, y) {
         const el = document.createElement("div");
         el.className = "cursor-trail";
+
+        // 設定 left/top 配合 CSS 的 translate(-50%, -50%)
         el.style.left = x + "px";
         el.style.top = y + "px";
 
-        // 隨機旋轉角度
         const angle = Math.random() * 360;
         el.style.setProperty("--trail-rot", angle + "deg");
 
-        const scale = 0.4 + Math.random() * 1.4;
+        // 如果在加速狀態，尾跡也稍微放大
+        const baseScale = isHoveringInteractable ? 1.0 : 0.4;
+        const scale = baseScale + Math.random() * 1.2;
         el.style.setProperty("--trail-scale", scale);
 
         document.body.appendChild(el);
@@ -152,7 +146,6 @@
             el.remove();
         });
     }
-
 })();
 
 (function ($) {
@@ -234,15 +227,15 @@
             paginatedProjects.forEach((project) => {
                 const catClass = project.category.toLowerCase();
                 html += `
-                <div class="col-lg-3 col-md-6 project-item ${catClass} wow fadeInUp" data-wow-delay="${delay}s">
-                    <a href="project.html?id=${project.id}" class="team-link text-decoration-none">
-                        <div class="team-item">
-                            <div class="team-body overflow-hidden">
-                                <img class="img-fluid" src="${project.poster}" alt="${project.title}">
-                            </div>
-                        </div>
-                    </a>
-                </div>`;
+                <div class="col-lg-3 col-md-4 col-6 project-item ${catClass} wow fadeInUp" data-wow-delay="${delay}s">
+    <a href="project.html?id=${project.id}" class="team-link text-decoration-none">
+        <div class="team-item">
+            <div class="team-body overflow-hidden">
+                <img class="img-fluid" src="${project.poster}" alt="${project.title}">
+            </div>
+        </div>
+    </a>
+</div>`;
                 delay = (delay >= 0.4) ? 0.1 : delay + 0.1;
             });
         }
@@ -272,9 +265,9 @@
     }
 
 // --- 事件綁定 ---
-    $(document).ready(function() {
+    $(document).ready(function () {
         // 1. 標籤篩選按鈕
-        $(document).on('click', '.custom-filter a', function(e) {
+        $(document).on('click', '.custom-filter a', function (e) {
             e.preventDefault();
             $('.custom-filter a').removeClass('active');
             $(this).addClass('active');
@@ -285,7 +278,7 @@
         });
 
         // 2. 分頁數字按鈕
-        $(document).on('click', '.page-link', function(e) {
+        $(document).on('click', '.page-link', function (e) {
             e.preventDefault();
             const targetPage = $(this).data('page');
             if (targetPage === currentPage) return;
@@ -415,3 +408,242 @@
     }
 
 })(jQuery);
+
+document.addEventListener('DOMContentLoaded', function () {
+    // 1. 定義你的圖片路徑清單 (請根據實際檔名修改)
+    const imagePool = [
+        'img/portrait-1.png',
+        'img/portrait-2.png',
+        'img/gamepad.png',
+        'img/alien.png',
+        'img/alien-2.png',
+        'img/alien-3.png'
+    ];
+
+    const particles = document.querySelectorAll('.smoke-particle');
+
+    particles.forEach((particle) => {
+        // 2. 從陣列中隨機挑選一張圖
+        const randomImg = imagePool[Math.floor(Math.random() * imagePool.length)];
+
+        // 3. 套用背景圖
+        particle.style.backgroundImage = `url('${randomImg}')`;
+
+        // 4. 隨機微調左側位置與動畫時長，增加亂序感
+        const randomLeft = Math.floor(Math.random() * 90) + 5; // 5% - 95%
+        const randomDuration = 3 + Math.random() * 3; // 3s - 6s
+
+        particle.style.left = `${randomLeft}%`;
+        particle.style.animationDuration = `${randomDuration}s`;
+    });
+});
+
+// 獲取太空船元素
+const cursorShip = document.getElementById('cursor-ship');
+
+// 定義需要觸發加速反應的目標元素
+const interactiveElements = document.querySelectorAll('a, button, .project-item, .btn, .nav-link');
+
+interactiveElements.forEach(el => {
+    // 當滑鼠移入：加上加速類別
+    el.addEventListener('mouseenter', () => {
+        cursorShip.classList.add('cursor-boost');
+    });
+
+    // 當滑鼠移出：移除加速類別
+    el.addEventListener('mouseleave', () => {
+        cursorShip.classList.remove('cursor-boost');
+    });
+});
+
+(function () {
+    let bubbleInterval = null;
+    const exhibitionSection = document.getElementById('game');
+
+    if (!exhibitionSection) return;
+
+    // 建立觀察器：控制進入區域才開始產生
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (!bubbleInterval) {
+                    // 每 0.8 秒產生一個
+                    bubbleInterval = setInterval(() => {
+                        createAbsoluteBubble();
+                    }, 800);
+                }
+            } else {
+                if (bubbleInterval) {
+                    clearInterval(bubbleInterval);
+                    bubbleInterval = null;
+                }
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    observer.observe(exhibitionSection);
+
+    function createAbsoluteBubble() {
+        const bubble = document.createElement('div');
+        bubble.className = 'comic-bubble-dynamic';
+
+        // --- 核心邏輯：判斷是否過載 ---
+        if (window.isSystemOverloaded) {
+            // 狀態 A：系統崩潰，產生外星人圖片
+            const img = document.createElement('img');
+            img.src = 'img/alien-2.png';
+            img.style.width = '60px'; // 調整適合的大小
+            img.style.height = 'auto';
+            img.style.display = 'block';
+            bubble.appendChild(img);
+
+            // 變更氣泡樣式強化過載感
+            bubble.style.background = '#ff0055';
+            bubble.style.boxShadow = '5px 5px 0px #000';
+        } else {
+            // 狀態 B：正常狀態，產生隨機文字
+            const messages = ["BOOM!", "導彈發射!", "靈感偵測!", "英雄登場!", "作業做不完!!", "作業被偷啦!!", "燒掉!!", "咻——", "設計中...", "OMG!", "真假!?", "不來看一下嗎?", "外星人入侵!?"];
+            const text = document.createElement('span');
+            text.className = 'bubble-text-dynamic';
+            text.innerText = messages[Math.floor(Math.random() * messages.length)];
+            bubble.appendChild(text);
+        }
+
+        // --- 定位計算 ---
+        // 1. 左右兩側隨機分配 (避開中間內容)
+        const isLeft = Math.random() > 0.5;
+        const xPercent = isLeft ? (Math.random() * 20 + 5) : (Math.random() * 20 + 75);
+
+        // 2. 取得 #game 區塊相對於整個頁面的座標
+        const rect = exhibitionSection.getBoundingClientRect();
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        // 3. 在區塊高度範圍內隨機生成 Y 軸座標
+        const randomY = Math.random() * (rect.height - 100) + 50;
+        const absoluteY = rect.top + scrollTop + randomY;
+
+        // 4. 隨機旋轉角度
+        const rot = (Math.random() * 20 - 10);
+
+        // --- 套用樣式 ---
+        bubble.style.setProperty('--bubble-rot', rot + 'deg');
+        bubble.style.left = xPercent + '%';
+        bubble.style.top = absoluteY + 'px';
+        bubble.style.position = 'absolute'; // 確保為絕對定位
+
+        document.body.appendChild(bubble);
+
+        // --- 動畫處理 ---
+        void bubble.offsetHeight; // 強制重繪觸發 CSS Transition
+        bubble.classList.add('bubble-visible');
+
+        // 2.5 秒後執行消失動畫並移除元素
+        setTimeout(() => {
+            bubble.classList.remove('bubble-visible');
+            bubble.classList.add('bubble-fade-out');
+            setTimeout(() => {
+                if (bubble.parentNode) bubble.remove();
+            }, 500);
+        }, 2500);
+    }
+})();
+
+// 1. 點擊音效函式 (確保放在全域)
+function playClickSound(frequency = 440, type = 'sine') {
+    try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(frequency, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(10, ctx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.1, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.1);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.1);
+    } catch (e) {
+        console.log("AudioContext blocked");
+    }
+}
+
+
+(function () {
+    let score = 0;
+    let isGlitched = false;
+    const core = document.getElementById('inspiration-core');
+    const scoreText = document.getElementById('inspiration-score');
+
+    if (!core) return;
+    window.isSystemOverloaded = false; // 新增全域旗標
+
+    core.addEventListener('click', function(e) {
+        if (window.isSystemOverloaded) return;
+
+        score += 10;
+        if (score > 100) score = 100;
+        if (scoreText) scoreText.innerText = score;
+
+        playClickSound(200 + score * 5, 'square');
+
+        // --- 核心修正：動態變色邏輯 ---
+        const hue = 200 - (score * 2); // 隨數值從藍變紅
+        core.style.transform = `scale(${1 + score/200})`;
+
+        // 確保設定的是 background 或 CSS 變數，而不是 filter
+        core.style.setProperty('--core-color', `hsl(${hue}, 100%, 60%)`);
+        core.style.boxShadow = `0 0 ${20 + score/2}px hsl(${hue}, 100%, 60%)`;
+        // 移除這行（如果原本在那裡）：core.style.filter = "none";
+
+        if (score === 100) {
+            window.isSystemOverloaded = true; // 設定過載狀態
+            triggerOverload();
+        }
+    });
+
+    function triggerOverload() {
+        isGlitched = true;
+        document.body.classList.add('screen-shake');
+
+        setTimeout(() => {
+            document.body.classList.remove('screen-shake');
+
+            createGlobalGlitchLayer();
+            createFixedWarning();
+
+            // --- 修正：只有在過載後才套用灰色濾鏡 ---
+            if (core) {
+                core.style.filter = "grayscale(1) brightness(0.3)";
+                core.style.boxShadow = "none"; // 關閉發光效果
+            }
+        }, 3000);
+    }
+
+    function createGlobalGlitchLayer() {
+        if (document.querySelector('.global-glitch-overlay')) return;
+        const glitchLayer = document.createElement('div');
+        glitchLayer.className = 'global-glitch-overlay';
+        document.body.appendChild(glitchLayer);
+    }
+
+    function createFixedWarning() {
+        if (document.querySelector('.glitch-overlay-mask')) return;
+        const mask = document.createElement('div');
+        mask.className = 'glitch-overlay-mask';
+        mask.innerHTML = `
+        <div class="glitch-warning-text">
+            中計了！<br>
+            這是外星人的陰謀！<br>
+            快重新加載頁面！
+        </div>
+        <div style="color:white; opacity:0.5; margin-top:20px; font-size:0.9rem;">
+            ( 點擊F5 )
+        </div>
+    `;
+        document.body.appendChild(mask);
+    }
+})();
+
