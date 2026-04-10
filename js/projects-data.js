@@ -45,7 +45,7 @@
         title: "The Followers",
         poster: "img/A04/A04-The Followers.webp",
         description: "在一間知名的餐廳提供神祕的料理，主角也慕名前往，送上的料理精緻，掀開華麗的外表卻發現裡頭都是腐爛的，眾人不僅毫無疑惑還吃得津津有味，拒絕嘗試的主角頓時變成眾人眼中的異類，不懂的欣賞名廚料理的無知者，而主廚也出現向他推銷著，最終抵不過群眾壓力變形為蒼蠅， 自願吃著腐爛食物。",
-        videoUrl: "https://www.youtube.com/embed/WBCTlbIPVhI",
+        videoUrl: "https://www.youtube.com/embed/SUdwq8x0rc4",
         links: [
             { label: "Instagram", url: "https://www.instagram.com/the_followers_oyo?igsh=a3Y3bGRvMjY1d25p" },
         ],
@@ -242,7 +242,7 @@
         title: "Debug.Log(_Cat_)",
         poster: "img/G04/G04-Debug.Log(_Cat_).webp",
         description: "作品特色：一款3D-雙人合作型闖關遊戲，本作顛覆傳統角色控制，強調「操作身體」的全新玩法設計，主角「貓貓蟲」擁有可伸縮的身體與強力黏性，玩家需善用其獨特的移動方式與限制，透過協作與配合解決任務。劇情大綱：一個發生在死寂星球「科索亞特」的故事，全球財團 I.L.L. 藉由無償為「厄沙洛」居民建造避難所為名，實則在地下深處建立了「潛沙星舟-研究站」，囚禁居民並奴役頂尖科學家，只為執行重塑生態的 「Project H.O.M.E.」。研究核心是一群擁有淨化與特殊物理能力的神秘生物「貓貓蟲」，牠們被財團視為實現偉大願景的「營養生物」並飽受非人道實驗；在無盡的觀測中，幼小的貓貓蟲「阿嗶嗶」與「阿嘟嘟」被迫與同伴分離，從寧靜的棲地被擄往冰冷的實驗機艙，在毫無感情的指令下，牠們被迫展開一場關乎生存與自由的殘酷測試。",
-        videoUrl: "https://www.youtube.com/embed/SUdwq8x0rc4",
+        videoUrl: "https://www.youtube.com/embed/Z4KXXviyxvo",
         links: [
             { label: "Instagram", url: "https://www.instagram.com/debug.log_cat/" },
             { label: "Threads", url: "https://www.threads.com/@debug.log_cat" },
