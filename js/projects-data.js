@@ -83,9 +83,9 @@
         title: "星際旅客",
         poster: "img/A06/A06-星際旅客.webp",
         description: "在浩瀚的宇宙深處，獨自在太空站生活的太空人莎娜，因為渴望陪伴決定收養一隻狗。卻沒想到這狗竟是一位來自遙遠星球的犬人—Guest。他背負著家園毀滅的傷痛，跨越無數星河來到地球避難，卻因地球環境影響退化成狗的模樣。在狹小的空站內，兩個截然不同的生命體建立了深厚 的友情。攜手度過了許多意想不到的冒險，直到某天 Guest 的家鄉發出了召喚。命運的分岔口讓他們面臨抉擇：是回歸故土，還是選擇彼此的陪伴？一場災難突如其來，他們攜手在太空站的殘骸中逃生，見證了一個奇蹟般的結局。",
-        videoUrl: "",
+        videoUrl: "https://www.youtube.com/embed/cJeKqBPPmAw",
         links: [
-            { label: "Instagram", url: "https://www.youtube.com/embed/cJeKqBPPmAw" },
+            { label: "Instagram", url: "https://www.instagram.com/stellarrounin_000/" },
         ],
         members: [
             { name: "廖偉智", role: "指導老師", img: "img/A06/指導老師-廖偉智.webp" },
