@@ -85,7 +85,7 @@
         description: "在浩瀚的宇宙深處，獨自在太空站生活的太空人莎娜，因為渴望陪伴決定收養一隻狗。卻沒想到這狗竟是一位來自遙遠星球的犬人—Guest。他背負著家園毀滅的傷痛，跨越無數星河來到地球避難，卻因地球環境影響退化成狗的模樣。在狹小的空站內，兩個截然不同的生命體建立了深厚 的友情。攜手度過了許多意想不到的冒險，直到某天 Guest 的家鄉發出了召喚。命運的分岔口讓他們面臨抉擇：是回歸故土，還是選擇彼此的陪伴？一場災難突如其來，他們攜手在太空站的殘骸中逃生，見證了一個奇蹟般的結局。",
         videoUrl: "",
         links: [
-            { label: "Instagram", url: "https://www.instagram.com/stellarrounin_000/" },
+            { label: "Instagram", url: "https://www.youtube.com/embed/cJeKqBPPmAw" },
         ],
         members: [
             { name: "廖偉智", role: "指導老師", img: "img/A06/指導老師-廖偉智.webp" },
@@ -242,7 +242,7 @@
         title: "Debug.Log(_Cat_)",
         poster: "img/G04/G04-Debug.Log(_Cat_).webp",
         description: "作品特色：一款3D-雙人合作型闖關遊戲，本作顛覆傳統角色控制，強調「操作身體」的全新玩法設計，主角「貓貓蟲」擁有可伸縮的身體與強力黏性，玩家需善用其獨特的移動方式與限制，透過協作與配合解決任務。劇情大綱：一個發生在死寂星球「科索亞特」的故事，全球財團 I.L.L. 藉由無償為「厄沙洛」居民建造避難所為名，實則在地下深處建立了「潛沙星舟-研究站」，囚禁居民並奴役頂尖科學家，只為執行重塑生態的 「Project H.O.M.E.」。研究核心是一群擁有淨化與特殊物理能力的神秘生物「貓貓蟲」，牠們被財團視為實現偉大願景的「營養生物」並飽受非人道實驗；在無盡的觀測中，幼小的貓貓蟲「阿嗶嗶」與「阿嘟嘟」被迫與同伴分離，從寧靜的棲地被擄往冰冷的實驗機艙，在毫無感情的指令下，牠們被迫展開一場關乎生存與自由的殘酷測試。",
-        videoUrl: "https://www.youtube.com/embed/Z4KXXviyxvo",
+        videoUrl: "https://www.youtube.com/embed/SUdwq8x0rc4",
         links: [
             { label: "Instagram", url: "https://www.instagram.com/debug.log_cat/" },
             { label: "Threads", url: "https://www.threads.com/@debug.log_cat" },
@@ -262,7 +262,7 @@
         title: "森林之心",
         poster: "img/G05/G05-森林之心.webp",
         description: "作品敘述：《森林之心》是一款2D像素橫向捲軸動作遊戲。玩家需靈活運用「衝刺」閃避攻擊，並在戰鬥中透過「架招」化解攻勢。遊戲具備自由搭配戰利品以獲得特殊加成，並結合「技能」與「合成」機制打造專屬戰鬥流派，突破重重關卡挑戰。劇情大綱：本作的核心體驗將透過艾露的雙眼展開，以極具詩意的敘事語言與深層的象徵隱喻，細膩捕捉靈魂崩潰的瞬間與情感流動的軌跡。艾露不直接干預世界，卻透過她的「見證」，讓隱藏在廢墟中的秘密逐步浮現。她是一面映照情感的鏡子，讓玩家在探索的過程中，與每一個掙扎的靈魂產生共鳴，最終揭開生命底層最深邃的真相。",
-        videoUrl: "https://www.youtube.com/embed/Z4KXXviyxvo",
+        videoUrl: "https://www.youtube.com/embed/vnTg-Ws1WZU",
         links: [
             { label: "Instagram", url: "https://www.instagram.com/forest.heart_g05" },
         ],
@@ -301,7 +301,7 @@
         title: "Dispell",
         poster: "img/G07/G07-Dispell.webp",
         description: "作品簡介：「Dispell」是一款第三人稱單人3D平台跳躍冒險遊戲。玩家將化身為一名靈媒，透過化解各種各樣的「念頭生物」以獲得新的能力，一步步推進關卡，瞭解故事的全貌。劇情簡介：年輕的靈媒兼内容創作者——鄔詩，爲了取材貿然接觸奇怪的異象，意外闖入未知空間。那其中，她遇見了兩隻神秘生物。由於因爲不明原因，他們的力量失控並導致各种念頭生物在现实世界中大量涌现，形成超自然现象或扭曲的空间。爲了讓世界恢復平衡，鄔詩必須收復散落的力量，於此同時，她將見證城市化如何在土地上留下無形卻深刻的裂痕。",
-        videoUrl: "https://www.youtube.com/embed/m-8aX_I7n9U",
+        videoUrl: "https://www.youtube.com/embed/jwP0mtJp5R0",
         links: [
             //{ label: "Linktree", url: "https://linktr.ee/_dispell_" },
             { label: "Facebook", url: "https://www.facebook.com/allforget.dispell/" },
@@ -401,14 +401,14 @@
         title: "未完之舞",
         poster: "img/V04/V04-未完之舞.webp",
         description: "本作品以臺灣傳統陣頭文化為核心主題，透過影像敘事呈現年輕世代在文化傳承與自我認同之間的掙扎與成長。故事以主角在家庭、信仰與自我夢想之間的選擇為主軸，描繪他在參與廟會與舞獅活動的過程中，逐漸理解父親的信念與文化的價值。作品結合戲劇敘事、影像美學與在地文化元素，藉由細膩的角色刻畫與真實場景呈現，展現臺灣民俗文化的生命力與情感深度，期望讓更多年輕人重新認識並關注傳統文化的意義與傳承價值。",
-        videoUrl: "https://www.youtube.com/embed/pxajLIkRVs4",
+        videoUrl: "https://www.youtube.com/embed/yFb-F5Nj6xE",
         links: [
             {label: "Instagram", url: "https://www.instagram.com/wxyx_6?igsh=ODU1bW56cW1xMWow"},
         ],
         members: [
             {name: "蔣政衛", role: "指導老師", img: "img/V04/指導老師-蔣政衛.webp"},
             {name: "蕭宇浩", role: "導演", img: "img/V04/V04-蕭宇浩-導演.webp"},
-            {name: "賴怡綺", role: "總製片", img: "img/V04/V04-賴怡綺-總製片.webp"},
+            {name: "賴怡錡", role: "總製片", img: "img/V04/V04-賴怡綺-總製片.webp"},
             {name: "鄭哲安", role: "生活、演員製片", img: "img/V04/V04-鄭哲安-生活、演員製片.webp"},
             {name: "陳旻澔", role: "場記", img: "img/V04/V04-陳旻澔-場記.webp"},
             {name: "黃亘繹", role: "美術", img: "img/V04/V04-黃亘繹-美術.webp"},
