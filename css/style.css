@@ -1164,3 +1164,11 @@ button,
     0% { filter: brightness(1) sepia(1) hue-rotate(-50deg); }
     100% { filter: brightness(0.5) grayscale(1); }
 }
+
+@media (max-width: 576px) {
+    .btn {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+        font-size: 0.9rem;
+    }
+}
